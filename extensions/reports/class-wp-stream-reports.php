@@ -67,7 +67,7 @@ class WP_Stream_Reports {
 	public function load() {
 		// Register new submenu
 		if ( ! apply_filters( 'wp_stream_reports_disallow_site_access', false ) && ! WP_Stream_Admin::$disable_access && ( WP_Stream::is_connected() || WP_Stream::is_development_mode() ) ) {
-			add_action( 'admin_menu', array( $this, 'register_menu' ), 11 );
+			add_action( 'admin_menu', array( __CLASS__, 'register_menu' ), 11 );
 		}
 
 		add_action( 'all_admin_notices', array( $this, 'admin_notices' ) );
@@ -124,14 +124,14 @@ class WP_Stream_Reports {
 	 * @action admin_menu
 	 * @return void
 	 */
-	public function register_menu() {
+	public static function register_menu() {
 		self::$screen_id = add_submenu_page(
 			WP_Stream_Admin::RECORDS_PAGE_SLUG,
 			__( 'Reports', 'stream' ),
 			__( 'Reports', 'stream' ),
 			self::VIEW_CAP,
 			self::REPORTS_PAGE_SLUG,
-			array( $this, 'page' )
+			array( __CLASS__, 'page' )
 		);
 
 		// Create nonce right away so it is accessible everywhere
@@ -232,7 +232,7 @@ class WP_Stream_Reports {
 	 *
 	 * @return void
 	 */
-	public function page() {
+	public static function page() {
 		// Page class
 		$class   = 'metabox-holder columns-' . get_current_screen()->get_columns();
 		$add_url = add_query_arg(

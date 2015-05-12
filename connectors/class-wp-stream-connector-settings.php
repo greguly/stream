@@ -230,6 +230,7 @@ class WP_Stream_Connector_Settings extends WP_Stream_Connector {
 	public static function get_field_label( $field_key ) {
 		$labels = array(
 			// General
+			'blog_count'                    => __( 'Blog Count', 'stream' ),
 			'blogname'                      => __( 'Site Title', 'stream' ),
 			'blogdescription'               => __( 'Tagline', 'stream' ),
 			'siteurl'                       => __( 'WordPress Address (URL)', 'stream' ),

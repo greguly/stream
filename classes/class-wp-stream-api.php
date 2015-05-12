@@ -66,9 +66,9 @@ class WP_Stream_API {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->api_key    = get_option( self::API_KEY_OPTION_KEY, 0 );
-		$this->site_uuid  = get_option( self::SITE_UUID_OPTION_KEY, 0 );
-		self::$restricted = get_option( self::RESTRICTED_OPTION_KEY, 1 );
+		$this->api_key    = WP_Stream::is_network_activated() ? get_site_option( self::API_KEY_OPTION_KEY, 0 ) : get_option( self::API_KEY_OPTION_KEY, 0 );
+		$this->site_uuid  = WP_Stream::is_network_activated() ? get_site_option( self::SITE_UUID_OPTION_KEY, 0 ) : get_option( self::SITE_UUID_OPTION_KEY, 0 );
+		self::$restricted = WP_Stream::is_network_activated() ? get_site_option( self::RESTRICTED_OPTION_KEY, 1 ) : get_option( self::RESTRICTED_OPTION_KEY, 1 );
 	}
 
 	/**
@@ -133,7 +133,11 @@ class WP_Stream_API {
 			if ( (bool) $is_restricted !== self::$restricted ) {
 				self::$restricted = $is_restricted;
 
-				update_option( self::RESTRICTED_OPTION_KEY, $is_restricted );
+				if ( WP_Stream::is_network_activated() ) {
+					update_site_option( self::RESTRICTED_OPTION_KEY, $is_restricted );
+				} else {
+					update_option( self::RESTRICTED_OPTION_KEY, $is_restricted );
+				}
 			}
 		}
 

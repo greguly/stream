@@ -149,6 +149,11 @@ class WP_Stream {
 			add_action( 'init', array( 'WP_Stream_Live_Update', 'load' ) );
 			add_action( 'init', array( 'WP_Stream_Pointers', 'load' ) );
 			add_action( 'init', array( 'WP_Stream_Migrate', 'load' ) );
+
+			// Load network class if multisite and network-activated
+			if ( self::is_network_activated() ) {
+				add_action( 'init', array( 'WP_Stream_Network', 'load' ), 9 );
+			}
 		}
 
 		// Disable logging during the content import process
@@ -302,6 +307,23 @@ class WP_Stream {
 		 * @return bool
 		 */
 		return apply_filters( 'wp_stream_development_mode', $development_mode );
+	}
+
+	/**
+	 * Is Stream activated network-wide on multisite?
+	 *
+	 * @return bool
+	 */
+	public static function is_network_activated() {
+		if ( ! is_multisite() ) {
+			return false;
+		}
+
+		if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+		}
+
+		return is_plugin_active_for_network( WP_STREAM_PLUGIN );
 	}
 
 	/**

@@ -763,9 +763,15 @@ class WP_Stream_Admin {
 			WP_Stream_Notifications::$instance->on_activation();
 		}
 
-		update_option( WP_Stream_API::SITE_UUID_OPTION_KEY, WP_Stream::$api->site_uuid );
-		update_option( WP_Stream_API::API_KEY_OPTION_KEY, WP_Stream::$api->api_key );
-		update_option( WP_Stream_API::RESTRICTED_OPTION_KEY, WP_Stream_API::$restricted );
+		if ( WP_Stream::is_network_activated() ) {
+			update_site_option( WP_Stream_API::SITE_UUID_OPTION_KEY, WP_Stream::$api->site_uuid );
+			update_site_option( WP_Stream_API::API_KEY_OPTION_KEY, WP_Stream::$api->api_key );
+			update_site_option( WP_Stream_API::RESTRICTED_OPTION_KEY, WP_Stream_API::$restricted );
+		} else {
+			update_option( WP_Stream_API::SITE_UUID_OPTION_KEY, WP_Stream::$api->site_uuid );
+			update_option( WP_Stream_API::API_KEY_OPTION_KEY, WP_Stream::$api->api_key );
+			update_option( WP_Stream_API::RESTRICTED_OPTION_KEY, WP_Stream_API::$restricted );
+		}
 
 		do_action( 'wp_stream_site_connected', WP_Stream::$api->site_uuid, WP_Stream::$api->api_key, get_current_blog_id() );
 
@@ -783,8 +789,13 @@ class WP_Stream_Admin {
 	}
 
 	public static function remove_api_authentication() {
-		delete_option( WP_Stream_API::SITE_UUID_OPTION_KEY );
-		delete_option( WP_Stream_API::API_KEY_OPTION_KEY );
+		if ( WP_Stream::is_network_activated() ) {
+			delete_site_option( WP_Stream_API::SITE_UUID_OPTION_KEY );
+			delete_site_option( WP_Stream_API::API_KEY_OPTION_KEY );
+		} else {
+			delete_option( WP_Stream_API::SITE_UUID_OPTION_KEY );
+			delete_option( WP_Stream_API::API_KEY_OPTION_KEY );
+		}
 
 		do_action( 'wp_stream_site_disconnected', WP_Stream::$api->site_uuid, WP_Stream::$api->api_key, get_current_blog_id() );
 
