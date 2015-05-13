@@ -11,8 +11,8 @@ class WP_Stream_Network {
 		add_action( 'init', array( __CLASS__, 'ajax_network_admin' ) );
 		add_action( 'network_admin_menu', array( 'WP_Stream_Admin', 'register_menu' ) );
 		add_action( 'network_admin_menu', array( 'WP_Stream_Reports', 'register_menu' ) );
-		add_action( 'network_admin_menu', array( __CLASS__, 'admin_menu_screens' ) );
-		add_action( 'admin_menu', array( __CLASS__, 'admin_menu_screens' ) );
+		add_action( 'network_admin_menu', array( __CLASS__, 'admin_menu_screens' ), 11 );
+		add_action( 'admin_menu', array( __CLASS__, 'admin_menu_screens' ), 11 );
 		add_action( 'admin_bar_menu', array( __CLASS__, 'network_admin_bar_menu' ), 99 );
 
 		add_filter( 'wp_stream_query_properties', array( __CLASS__, 'query_properties' ) );
@@ -70,9 +70,9 @@ class WP_Stream_Network {
 	 */
 	public static function admin_menu_screens() {
 		if ( is_network_admin() ) {
-			remove_submenu_page( WP_Stream_Admin::RECORDS_PAGE_SLUG, 'wp_stream_settings' );
+			remove_submenu_page( WP_Stream_Admin::RECORDS_PAGE_SLUG, WP_Stream_Admin::SETTINGS_PAGE_SLUG );
 		} else {
-			remove_submenu_page( WP_Stream_Admin::RECORDS_PAGE_SLUG, 'wp_stream_account' );
+			remove_submenu_page( WP_Stream_Admin::RECORDS_PAGE_SLUG, WP_Stream_Admin::ACCOUNT_PAGE_SLUG );
 		}
 	}
 
