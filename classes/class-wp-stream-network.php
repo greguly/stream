@@ -15,6 +15,7 @@ class WP_Stream_Network {
 		add_action( 'admin_menu', array( __CLASS__, 'admin_menu_screens' ), 11 );
 		add_action( 'admin_bar_menu', array( __CLASS__, 'network_admin_bar_menu' ), 99 );
 
+		add_filter( 'wp_stream_blog_id_logged', array( __CLASS__, 'network_admin_blog_id' ) );
 		add_filter( 'wp_stream_query_properties', array( __CLASS__, 'query_properties' ) );
 		add_filter( 'wp_stream_list_table_screen_id', array( __CLASS__, 'list_table_screen_id' ) );
 		add_filter( 'wp_stream_query_args', array( __CLASS__, 'list_table_query_args' ) );
@@ -100,6 +101,17 @@ class WP_Stream_Network {
 				'href'   => esc_url( $href ),
 			)
 		);
+	}
+
+	/**
+	 * Set the correct blog_id during Network Admin activity
+	 *
+	 * @param int $blog_id
+	 *
+	 * @return int
+	 */
+	public static function network_admin_blog_id( $blog_id ) {
+		return is_network_admin() ? 0 : $blog_id;
 	}
 
 	/**
