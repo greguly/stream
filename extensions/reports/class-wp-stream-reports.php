@@ -16,13 +16,6 @@ class WP_Stream_Reports {
 	public static $screen_id;
 
 	/**
-	 * Holds admin notices messages
-	 *
-	 * @var array
-	 */
-	public static $messages = array();
-
-	/**
 	 * Hold the nonce name
 	 */
 	public static $nonce;
@@ -69,8 +62,6 @@ class WP_Stream_Reports {
 		if ( ! apply_filters( 'wp_stream_reports_disallow_site_access', false ) && ! WP_Stream_Admin::$disable_access && ( WP_Stream::is_connected() || WP_Stream::is_development_mode() ) ) {
 			add_action( 'admin_menu', array( __CLASS__, 'register_menu' ), 11 );
 		}
-
-		add_action( 'all_admin_notices', array( $this, 'admin_notices' ) );
 
 		// Load settings
 		require_once WP_STREAM_REPORTS_INC_DIR . 'class-wp-stream-reports-settings.php';
@@ -301,17 +292,6 @@ class WP_Stream_Reports {
 		wp_dequeue_script( 'image-edit' );
 		wp_dequeue_script( 'media-editor' );
 		wp_dequeue_script( 'media-audiovideo' );
-	}
-
-	/**
-	 * Display all messages on admin board
-	 *
-	 * @return void
-	 */
-	public static function admin_notices() {
-		foreach ( self::$messages as $message ) {
-			echo wp_kses_post( $message );
-		}
 	}
 
 	/**

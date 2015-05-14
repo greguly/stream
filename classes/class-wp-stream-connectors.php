@@ -40,7 +40,7 @@ class WP_Stream_Connectors {
 	 * Load built-in connectors
 	 */
 	public static function load() {
-		add_action( 'admin_notices', array( __CLASS__, 'admin_notices' ) );
+		add_action( 'all_admin_notices', array( __CLASS__, 'admin_notices' ) );
 
 		$connectors = array(
 			// Core

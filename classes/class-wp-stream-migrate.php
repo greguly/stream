@@ -90,7 +90,7 @@ class WP_Stream_Migrate {
 
 		self::$limit = apply_filters( 'wp_stream_migrate_chunk_size', 100 );
 
-		add_action( 'admin_notices', array( __CLASS__, 'migrate_notice' ), 9 );
+		add_action( 'all_admin_notices', array( __CLASS__, 'migrate_notice' ), 9 );
 
 		add_action( 'wp_ajax_wp_stream_migrate_action', array( __CLASS__, 'process_migrate_action' ) );
 	}
