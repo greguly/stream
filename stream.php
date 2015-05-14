@@ -147,13 +147,9 @@ class WP_Stream {
 			add_action( 'init', array( 'WP_Stream_Admin', 'load' ) );
 			add_action( 'init', array( 'WP_Stream_Dashboard_Widget', 'load' ) );
 			add_action( 'init', array( 'WP_Stream_Live_Update', 'load' ) );
-			add_action( 'init', array( 'WP_Stream_Pointers', 'load' ) );
 			add_action( 'init', array( 'WP_Stream_Migrate', 'load' ) );
-
-			// Load network class if multisite and network-activated
-			if ( self::is_network_activated() ) {
-				add_action( 'init', array( 'WP_Stream_Network', 'load' ), 9 );
-			}
+			add_action( 'init', array( 'WP_Stream_Network', 'load' ), 9 );
+			add_action( 'init', array( 'WP_Stream_Pointers', 'load' ) );
 		}
 
 		// Disable logging during the content import process
@@ -318,6 +314,8 @@ class WP_Stream {
 		if ( ! is_multisite() ) {
 			return false;
 		}
+
+		// @TODO: Ensure multisite is allowed for this site
 
 		if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
 			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );

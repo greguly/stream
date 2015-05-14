@@ -8,6 +8,10 @@ class WP_Stream_Network {
 	 * @return void
 	 */
 	public static function load() {
+		if ( ! WP_Stream::is_network_activated() ) {
+			return;
+		}
+
 		add_action( 'init', array( __CLASS__, 'ajax_network_admin' ) );
 		add_action( 'network_admin_menu', array( 'WP_Stream_Admin', 'register_menu' ) );
 		add_action( 'network_admin_menu', array( 'WP_Stream_Reports', 'register_menu' ) );
