@@ -44,7 +44,6 @@ class WP_Stream_Connectors {
 
 		$connectors = array(
 			// Core
-			'blogs',
 			'comments',
 			'editor',
 			'installer',
@@ -67,6 +66,11 @@ class WP_Stream_Connectors {
 			'woocommerce',
 			'wordpress-seo',
 		);
+
+		// Only add blogs connector if network-activated
+		if ( WP_Stream::is_network_activated() ) {
+			$connectors[] = 'blogs';
+		}
 
 		$classes = array();
 		foreach ( $connectors as $connector ) {
