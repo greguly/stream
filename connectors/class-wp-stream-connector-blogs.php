@@ -124,7 +124,7 @@ class WP_Stream_Connector_Blogs extends WP_Stream_Connector {
 
 		self::log(
 			_x(
-				'A new site called "%1$s" has been created',
+				'A new site called "%1$s" was created',
 				'1. Site name',
 				'stream'
 			),
@@ -152,7 +152,7 @@ class WP_Stream_Connector_Blogs extends WP_Stream_Connector {
 
 		self::log(
 			_x(
-				'A new site called "%1$s" has been registered',
+				'A new site called "%1$s" was registered',
 				'1. Site name',
 				'stream'
 			),
@@ -187,7 +187,7 @@ class WP_Stream_Connector_Blogs extends WP_Stream_Connector {
 
 		self::log(
 			_x(
-				'%1$s has been added to the site "%2$s" with %3$s capabilities',
+				'%1$s was added to the site "%2$s" with %3$s capabilities',
 				'1. User\'s name, 2. Site name, 3. Role',
 				'stream'
 			),
@@ -222,7 +222,7 @@ class WP_Stream_Connector_Blogs extends WP_Stream_Connector {
 
 		self::log(
 			_x(
-				'%1$s has been removed from the site "%2$s"',
+				'%1$s was removed from the site "%2$s"',
 				'1. User\'s name, 2. Site name',
 				'stream'
 			),
@@ -376,7 +376,7 @@ class WP_Stream_Connector_Blogs extends WP_Stream_Connector {
 
 		self::log(
 			_x(
-				'"%1$s" has been %2$s',
+				'"%1$s" was %2$s',
 				'1. Site name, 2. Status',
 				'stream'
 			),
