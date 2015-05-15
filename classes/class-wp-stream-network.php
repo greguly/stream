@@ -137,7 +137,7 @@ class WP_Stream_Network {
 	}
 
 	/**
-	 *
+	 * Add site count to the page title in the network admin
 	 *
 	 * @filter wp_stream_admin_page_title
 	 *
