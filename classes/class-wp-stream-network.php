@@ -306,7 +306,7 @@ class WP_Stream_Network {
 			'<a href="%s"><span>%s</span></a>',
 			add_query_arg(
 				array(
-					'blog_id' => $blog->blog_id
+					'blog_id' => $blog->blog_id,
 				),
 				network_admin_url( 'admin.php?page=wp_stream' )
 			),

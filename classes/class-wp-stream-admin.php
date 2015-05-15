@@ -599,7 +599,7 @@ class WP_Stream_Admin {
 		if ( plugin_basename( WP_STREAM_DIR . 'stream.php' ) === $file ) {
 			$admin_page_url = add_query_arg(
 				array(
-					'page' => self::SETTINGS_PAGE_SLUG
+					'page' => self::SETTINGS_PAGE_SLUG,
 				),
 				self_admin_url( self::ADMIN_PARENT_PAGE )
 			);
