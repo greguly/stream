@@ -207,15 +207,6 @@ class WP_Stream {
 	}
 
 	/**
-	 * Check if Stream is running on WordPress.com VIP
-	 *
-	 * @return bool
-	 */
-	public static function is_vip() {
-		return function_exists( 'wpcom_vip_load_plugin' );
-	}
-
-	/**
 	 * Display admin notices when deprecated extension plugins exist
 	 *
 	 * @return void
@@ -331,12 +322,21 @@ class WP_Stream {
 	}
 
 	/**
+	 * Check if Stream is running on WordPress.com VIP
+	 *
+	 * @return bool
+	 */
+	public static function is_vip() {
+		return function_exists( 'wpcom_vip_load_plugin' );
+	}
+
+	/**
 	 * Is Stream activated network-wide on multisite?
 	 *
 	 * @return bool
 	 */
 	public static function is_network_activated() {
-		if ( ! is_multisite() ) {
+		if ( ! is_multisite() || self::is_vip() ) {
 			return false;
 		}
 
