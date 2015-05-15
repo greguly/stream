@@ -59,7 +59,7 @@ class WP_Stream_Admin {
 							'page'  => self::RECORDS_PAGE_SLUG,
 							'nonce' => $connect_nonce,
 						),
-						admin_url( self::ADMIN_PARENT_PAGE )
+						self_admin_url( self::ADMIN_PARENT_PAGE )
 					)
 				),
 			),
@@ -75,7 +75,11 @@ class WP_Stream_Admin {
 		}
 
 		// Disconnect
-		if ( self::ACCOUNT_PAGE_SLUG === wp_stream_filter_input( INPUT_GET, 'page' ) && '1' === wp_stream_filter_input( INPUT_GET, 'disconnect' ) ) {
+		if (
+			self::ACCOUNT_PAGE_SLUG === wp_stream_filter_input( INPUT_GET, 'page' )
+			&&
+			'1' === wp_stream_filter_input( INPUT_GET, 'disconnect' )
+		) {
 			add_action( 'admin_init', array( __CLASS__, 'remove_api_authentication' ) );
 		}
 
@@ -215,7 +219,7 @@ class WP_Stream_Admin {
 						array(
 							'page' => self::RECORDS_PAGE_SLUG,
 						),
-						admin_url( self::ADMIN_PARENT_PAGE )
+						self_admin_url( self::ADMIN_PARENT_PAGE )
 					)
 				),
 			),
@@ -593,7 +597,12 @@ class WP_Stream_Admin {
 	 */
 	public static function plugin_action_links( $links, $file ) {
 		if ( plugin_basename( WP_STREAM_DIR . 'stream.php' ) === $file ) {
-			$admin_page_url = add_query_arg( array( 'page' => self::SETTINGS_PAGE_SLUG ), admin_url( self::ADMIN_PARENT_PAGE ) );
+			$admin_page_url = add_query_arg(
+				array(
+					'page' => self::SETTINGS_PAGE_SLUG
+				),
+				self_admin_url( self::ADMIN_PARENT_PAGE )
+			);
 
 			$links[] = sprintf( '<a href="%s">%s</a>', esc_url( $admin_page_url ), esc_html__( 'Settings', 'stream' ) );
 		}
@@ -647,7 +656,7 @@ class WP_Stream_Admin {
 				'page'    => self::RECORDS_PAGE_SLUG,
 				'message' => 'connected',
 			),
-			admin_url( self::ADMIN_PARENT_PAGE )
+			self_admin_url( self::ADMIN_PARENT_PAGE )
 		);
 
 		wp_safe_redirect( $redirect_url );
@@ -677,7 +686,7 @@ class WP_Stream_Admin {
 			array(
 				'page' => self::RECORDS_PAGE_SLUG,
 			),
-			admin_url( self::ADMIN_PARENT_PAGE )
+			self_admin_url( self::ADMIN_PARENT_PAGE )
 		);
 
 		wp_safe_redirect( $redirect_url );
