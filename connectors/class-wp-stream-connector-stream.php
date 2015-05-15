@@ -36,7 +36,8 @@ class WP_Stream_Connector_Stream extends WP_Stream_Connector {
 	 */
 	public static function get_context_labels() {
 		return array(
-			'site' => esc_html__( 'Site', 'stream' ),
+			'site'    => esc_html__( 'Site', 'stream' ),
+			'network' => esc_html__( 'Network', 'stream' ),
 		);
 	}
 
@@ -69,7 +70,7 @@ class WP_Stream_Connector_Stream extends WP_Stream_Connector {
 				'api_key'   => $api_key,
 			),
 			$blog_id,
-			'site',
+			WP_Stream::is_network_activated() ? 'network' : 'site',
 			'connected'
 		);
 	}
@@ -91,7 +92,7 @@ class WP_Stream_Connector_Stream extends WP_Stream_Connector {
 				'api_key'   => $api_key,
 			),
 			$blog_id,
-			'site',
+			WP_Stream::is_network_activated() ? 'network' : 'site',
 			'disconnected'
 		);
 	}
