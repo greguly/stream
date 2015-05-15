@@ -165,9 +165,9 @@ class WP_Stream_API {
 
 		// Only check the beginning of these type strings
 		if ( 0 === strpos( $type, 'pro' ) ) {
-			$label = __( 'Pro', 'stream' );
+			$label = esc_html__( 'Pro', 'stream' );
 		} else {
-			$label = __( 'Free', 'stream' );
+			$label = esc_html__( 'Free', 'stream' );
 		}
 
 		return $label;
@@ -193,7 +193,7 @@ class WP_Stream_API {
 		$retention = WP_Stream::$api->get_plan_retention();
 
 		if ( 0 === $retention ) {
-			$label = __( '1 Year', 'stream' );
+			$label = esc_html__( '1 Year', 'stream' );
 		} else {
 			$label = sprintf(
 				_n( '1 Day', '%s Days', $retention, 'stream' ),
@@ -235,7 +235,7 @@ class WP_Stream_API {
 		$site        = WP_Stream::$api->get_site();
 		$date_format = get_option( 'date_format' );
 
-		return isset( $site->created ) ? date_i18n( $date_format, strtotime( $site->created ) ) : __( 'N/A', 'stream' );
+		return isset( $site->created ) ? date_i18n( $date_format, strtotime( $site->created ) ) : esc_html__( 'N/A', 'stream' );
 	}
 
 	/**
@@ -247,7 +247,7 @@ class WP_Stream_API {
 		$site        = WP_Stream::$api->get_site();
 		$date_format = get_option( 'date_format' );
 
-		return isset( $site->expiry->date ) ? date_i18n( $date_format, strtotime( $site->expiry->date ) ) : __( 'N/A', 'stream' );
+		return isset( $site->expiry->date ) ? date_i18n( $date_format, strtotime( $site->expiry->date ) ) : esc_html__( 'N/A', 'stream' );
 	}
 
 	/**
@@ -459,7 +459,7 @@ class WP_Stream_API {
 		} else {
 			$this->errors['errors']['remote_request_error'] = $request->get_error_message();
 
-			WP_Stream::notice( sprintf( '<strong>%s</strong> %s.', __( 'Stream API Error.', 'stream' ), $this->errors['errors']['remote_request_error'] ) );
+			WP_Stream::notice( sprintf( '<strong>%s</strong> %s.', esc_html__( 'Stream API Error.', 'stream' ), $this->errors['errors']['remote_request_error'] ) );
 		}
 
 		if ( ! empty( $this->errors ) ) {

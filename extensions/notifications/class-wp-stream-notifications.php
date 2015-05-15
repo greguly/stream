@@ -45,14 +45,15 @@ class WP_Stream_Notifications {
 	const VIEW_CAP = 'view_stream_notifications';
 
 	/**
-	 * Return active instance of this class, create one if it doesn't exist
+	 * Return an active instance of this class, and create one if it doesn't exist
 	 *
 	 * @return WP_Stream_Notifications
 	 */
 	public static function get_instance() {
-		if ( empty( self::$instance ) ) {
+		if ( ! self::$instance ) {
 			self::$instance = new self();
 		}
+
 		return self::$instance;
 	}
 
@@ -144,6 +145,13 @@ class WP_Stream_Notifications {
 		$this->matcher = new WP_Stream_Notifications_Matcher();
 	}
 
+	/**
+	 * Display extension preview info
+	 *
+	 * @action in_admin_header
+	 *
+	 * @return void
+	 */
 	public static function in_admin_header() {
 		global $typenow;
 
@@ -171,6 +179,7 @@ class WP_Stream_Notifications {
 	 * Register Notification menu under Stream's main one
 	 *
 	 * @action admin_menu
+	 *
 	 * @return void
 	 */
 	public function register_menu() {
@@ -191,18 +200,14 @@ class WP_Stream_Notifications {
 	}
 
 	/**
-	 * Plugin activation routine
+	 * Do things when being set up for the first time
+	 *
 	 * @return void
 	 */
 	public function on_activation() {
-		// Add sample rule
-		$args = array(
-			'post_type'      => WP_Stream_Notifications_Post_Type::POSTTYPE,
-			'post_status'    => 'any',
-			'posts_per_page' => 1,
-		);
+		$rules = array_sum( (array) wp_count_posts( WP_Stream_Notifications_Post_Type::POSTTYPE ) );
 
-		if ( ! get_posts( $args ) ) {
+		if ( empty( $rules ) ) {
 			$this->add_sample_rule();
 		}
 	}
@@ -210,6 +215,7 @@ class WP_Stream_Notifications {
 	/**
 	 * Add a sample rule, used upon activation
 	 *
+	 * @return void
 	 */
 	public function add_sample_rule() {
 		$postarr = array(
