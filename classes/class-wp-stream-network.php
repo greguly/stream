@@ -21,7 +21,8 @@ class WP_Stream_Network {
 
 		add_filter( 'wp_stream_blog_id_logged', array( __CLASS__, 'network_admin_blog_id' ) );
 		add_filter( 'wp_stream_query_properties', array( __CLASS__, 'query_properties' ) );
-		add_filter( 'wp_stream_list_table_screen_id', array( __CLASS__, 'list_table_screen_id' ) );
+		add_filter( 'wp_stream_admin_page_title', array( __CLASS__, 'network_admin_page_title' ) );
+		add_filter( 'wp_stream_list_table_screen_id', array( __CLASS__, 'network_list_table_screen_id' ) );
 		add_filter( 'wp_stream_query_args', array( __CLASS__, 'list_table_query_args' ) );
 		add_filter( 'wp_stream_list_table_filters', array( __CLASS__, 'list_table_filters' ) );
 		add_filter( 'wp_stream_list_table_columns', array( __CLASS__, 'network_admin_columns' ) );
@@ -136,15 +137,33 @@ class WP_Stream_Network {
 	}
 
 	/**
+	 *
+	 *
+	 * @filter wp_stream_admin_page_title
+	 *
+	 * @param string page_title
+	 *
+	 * @return string
+	 */
+	public static function network_admin_page_title( $page_title ) {
+		if ( is_network_admin() ) {
+			$site_count = sprintf( _n( '1 site', '%s sites', get_blog_count(), 'stream' ), number_format( get_blog_count() ) );
+			$page_title = sprintf( '%s (%s)', $page_title, $site_count );
+		}
+
+		return $page_title;
+	}
+
+	/**
 	 * Add the network suffix to the $screen_id when in the network admin
 	 *
 	 * @filter wp_stream_list_table_screen_id
 	 *
-	 * @param $screen_id
+	 * @param string $screen_id
 	 *
 	 * @return string
 	 */
-	public static function list_table_screen_id( $screen_id ) {
+	public static function network_list_table_screen_id( $screen_id ) {
 		if ( $screen_id && is_network_admin() ) {
 			if ( '-network' !== substr( $screen_id, -8 ) ) {
 				$screen_id .= '-network';
