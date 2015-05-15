@@ -133,6 +133,10 @@ class WP_Stream_Reports {
 	 * @return void
 	 */
 	public static function register_menu() {
+		if ( ! WP_Stream::is_connected() && ! WP_Stream::is_development_mode() ) {
+			return;
+		}
+
 		self::$screen_id = add_submenu_page(
 			WP_Stream_Admin::RECORDS_PAGE_SLUG,
 			__( 'Reports', 'stream' ),
@@ -146,6 +150,7 @@ class WP_Stream_Reports {
 		self::$nonce = array( 'wp_stream_reports_nonce' => wp_create_nonce( 'stream-reports-page' ) );
 
 		$metabox = WP_Stream_Reports_Metaboxes::get_instance();
+
 		add_action( 'load-' . self::$screen_id, array( $metabox, 'load_page' ) );
 	}
 

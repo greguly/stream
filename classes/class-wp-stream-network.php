@@ -303,9 +303,15 @@ class WP_Stream_Network {
 		}
 
 		$blog = ( 0 === $item->blog_id ) ? self::get_network_blog() : get_blog_details( $item->blog_id );
-		$out  = sprintf(
+
+		$out = sprintf(
 			'<a href="%s"><span>%s</span></a>',
-			add_query_arg( array( 'blog_id' => $blog->blog_id ), network_admin_url( 'admin.php?page=wp_stream' ) ),
+			add_query_arg(
+				array(
+					'blog_id' => $blog->blog_id
+				),
+				network_admin_url( 'admin.php?page=wp_stream' )
+			),
 			esc_html( $blog->blogname )
 		);
 
