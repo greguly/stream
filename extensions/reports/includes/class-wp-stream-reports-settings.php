@@ -215,11 +215,12 @@ class WP_Stream_Reports_Settings {
 		if ( $is_saved ) {
 			wp_safe_redirect(
 				add_query_arg(
-					array( 'page' => WP_Stream_Reports::REPORTS_PAGE_SLUG ),
+					array(
+						'page' => WP_Stream_Reports::REPORTS_PAGE_SLUG,
+					),
 					self_admin_url( 'admin.php' )
 				)
 			);
-
 			exit;
 		} else {
 			wp_die( esc_html__( "Uh no! This wasn't suppose to happen :(", 'stream' ) );

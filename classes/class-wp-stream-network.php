@@ -36,7 +36,7 @@ class WP_Stream_Network {
 	}
 
 	/**
-	 * Workaround to get admin-ajax.php to know when the request is from the network admin
+	 * Workaround to get admin-ajax.php to know when the request is from the Network Admin
 	 *
 	 * @see https://core.trac.wordpress.org/ticket/22589
 	 */
@@ -47,8 +47,6 @@ class WP_Stream_Network {
 			DOING_AJAX
 			&&
 			preg_match( '#^' . network_admin_url() . '#i', $_SERVER['HTTP_REFERER'] )
-			&&
-			! defined( 'WP_NETWORK_ADMIN' )
 		) {
 			define( 'WP_NETWORK_ADMIN', true );
 		}

@@ -133,6 +133,9 @@ class WP_Stream {
 		// Load connectors after widgets_init, but before the default of 10
 		add_action( 'init', array( 'WP_Stream_Connectors', 'load' ), 9 );
 
+		// Load network class before the extensions
+		add_action( 'init', array( 'WP_Stream_Network', 'load' ), 9 );
+
 		// Load extensions
 		foreach ( glob( WP_STREAM_EXTENSIONS_DIR . '*' ) as $extension ) {
 			require_once sprintf( '%s/class-wp-stream-%s.php', $extension, basename( $extension ) );
@@ -150,7 +153,6 @@ class WP_Stream {
 			add_action( 'init', array( 'WP_Stream_Dashboard_Widget', 'load' ) );
 			add_action( 'init', array( 'WP_Stream_Live_Update', 'load' ) );
 			add_action( 'init', array( 'WP_Stream_Migrate', 'load' ) );
-			add_action( 'init', array( 'WP_Stream_Network', 'load' ), 9 );
 			add_action( 'init', array( 'WP_Stream_Pointers', 'load' ) );
 			add_action( 'init', array( 'WP_Stream_Unread', 'load' ) );
 		}

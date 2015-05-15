@@ -3,7 +3,6 @@
 class WP_Stream_Reports_Charts {
 
 	public function __construct() {
-
 		// Load records
 		add_filter( 'wp_stream_reports_load_records', array( $this, 'sort_coordinates_by_count' ), 10, 2 );
 		add_filter( 'wp_stream_reports_load_records', array( $this, 'limit_coordinates' ), 10, 2 );
@@ -15,11 +14,9 @@ class WP_Stream_Reports_Charts {
 
 		// Chart finalization
 		add_filter( 'wp_stream_reports_finalize_chart', array( $this, 'apply_chart_settings' ), 10, 2 );
-
 	}
 
 	public function get_chart_options( $args, $records ) {
-
 		$coordinates = apply_filters( 'wp_stream_reports_make_chart', $records, $args );
 		$values      = apply_filters( 'wp_stream_reports_finalize_chart', $coordinates, $args );
 
@@ -75,6 +72,7 @@ class WP_Stream_Reports_Charts {
 	 */
 	public function limit_coordinates( $records, $args ) {
 		$limit = apply_filters( 'wp_stream_reports_record_limit', 10 );
+
 		if ( 0 === $limit ) {
 			return $records;
 		}
